@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devi | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #0f0f1a, #1b2234);
+      color: white;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+
+    }
+
+    /* Custom round cursor */
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #66b2ff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+
+    a:hover, button:hover {
+      cursor: none;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1rem 0;
+      border-radius: 30px;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-family: monospace;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #3399ff;
+      color: black;
+    }
+
+    .main {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding-left: 10%;
+      background: linear-gradient(to right, rgba(255,255,255,0.08) 3%, transparent 3%);
+    }
+
+    .main-content {
+      text-align: left;
+    }
+
+    .main h1 {
+      font-size: 2.5rem;
+      font-family: monospace;
+    }
+
+    .main h2 {
+      font-size: 4rem;
+      color: #66b2ff;
+      margin: 0.5em 0;
+    }
+
+    .main h3 {
+      font-size: 3rem;
+      color: #f5f5f5;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      background: linear-gradient(to right, #a3d5ff, #3399ff);
+      border: none;
+      color: black;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 3px 3px 0px #003366;
+    }
+
+    section {
+      padding: 60px 20px;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.8s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about, .tech-stack, .projects-section {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .about {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    #about {
+      padding-top: 100px;
+      min-height: 100vh;
+    }
+    #skills {
+  padding-top: 150px;
+  min-height: 150vh;
+}
+ #projects {
+  padding-top: 150px;
+  min-height: 150vh;
+}
+    .about-text {
+      max-width: 500px;
+    }
+
+    .about-text h2 {
+      font-family: monospace;
+      color: #66b2ff;
+      font-size: 2rem;
+    }
+
+    .about-img {
+      border: 2px solid #3399ff;
+      padding: 5px;
+    }
+
+    .about-img img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .skills-section h2 {
+      font-family: monospace;
+      color: #66b2ff;
+      font-size: 2.5rem;
+      text-align: center;
+      font-weight: bold; 
+    }
+
+    .tech-stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 icons per row */
+  gap: 40px;
+  justify-items: center;
+}
+    .tech-stack img {
+      width: 80px;
+      height: 80px;
+      padding: 15px;
+      background-color: #1f1f2e;
+      border-radius: 20px;
+    }
+
+    .projects-section h2 {
+      font-family: monospace;
+      color: #3399ff;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: #1f1f2e;
+      padding: 30px;
+      margin: 30px auto;
+      border-radius: 20px;
+      max-width: 600px;
+    }
+    #contact {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+    .project img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #3399ff;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .social-icons a {
+      margin: 0 15px;
+      font-size: 1.5rem;
+      color: #66b2ff;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ffccff;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.8rem;
+      color: #aaa;
+      text-decoration: none;
+    }
+    .icon-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-label {
+  position: absolute;
+  top: -30px;
+  color: white;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-label {
+  opacity: 1;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#home" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">HOME</a>
+    <a href="#about" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">ABOUT ME</a>
+    <a href="#skills" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">SKILLS</a>
+    <a href="#projects" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">PROJECTS</a>
+    <a href="#contact" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">CONTACT</a>
+  </nav>
+
+  <!-- Home Section -->
+  <div class="main" id="home">
+    <div class="main-content">
+      <h1>Hi, I'm</h1>
+      <h2>Devi</h2>
+      <h3>Data Analyst & Dashboard Creator</h3>
+      <button class="btn"><a href="https://www.linkedin.com/in/kalishwarialiasdevi30/" target="_blank" style="text-decoration: none; font-style: italic; color: black;">Let's Talk!</a></button>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div style="max-width: 800px;">
+    <h2 style="font-size: 2.5rem; color: #3399ff; font-weight: bold; margin-bottom: 40px; font-family: 'Times New Roman', Times, serif;">About Me</h2>
+    <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
+      Hello! I'm <strong>Kalishwari alias Devi</strong>, a passionate Data Analyst with a keen interest in transforming data into impactful insights that empower smarter decisions.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
+      My journey into data began with a curiosity for patterns and insights hidden in numbers. I’ve developed strong skills in tools like Excel, SQL, Python, and libraries such as Pandas and NumPy. I enjoy crafting interactive dashboards using Power BI to deliver data stories to both technical and non-technical audiences.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
+      I'm constantly learning through hands-on projects, focusing on data cleaning, visualization, and trend analysis. I aim to contribute to data-driven organizations and grow alongside impactful work.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
+      Thank you for visiting my portfolio — feel free to explore my work and reach out if you'd like to connect!
+    </p>
+  </div>
+</section>
+
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills-section">
+  <h2  style="font-size: 2.5rem; color: #3399ff; font-weight: bold; margin-bottom: 40px; font-family: 'Times New Roman', Times, serif;">Skills</h2>
+  <div class="tech-stack">
+    <div class="icon-wrapper">
+      <span class="icon-label">Python</span>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+    </div>
+    <div class="icon-wrapper">
+  <span class="icon-label">SQL</span>
+  <img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" alt="SQL" style="width: 80px; height: 80px; background-color: #1f1f2e; border-radius: 20px; padding: 15px;">
+</div>
+    <div class="icon-wrapper">
+      <span class="icon-label">Pandas</span>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+    </div>
+    <div class="icon-wrapper">
+  <span class="icon-label">Matplotlib</span>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" alt="Matplotlib" style="width: 80px; height: 80px; background-color: #1f1f2e; border-radius: 20px; padding: 15px;">
+</div>
+    <div class="icon-wrapper">
+      <span class="icon-label">Excel</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Microsoft_Excel_2013-2019_logo.svg" alt="Excel">
+</div>
+    <div class="icon-wrapper">
+      <span class="icon-label">Power BI</span>
+      <img src="https://raw.githubusercontent.com/Microsoft/PowerBI-Icons/main/SVG/Power-BI.svg" alt="Power BI">
+    </div>
+  </div>
+</section>
+
+
+  <!-- Projects Section -->
+<!-- Projects Section -->
+<section id="projects" style="padding: 60px 20px; background-color: #0d0d1a;">
+  <h2 style="font-size: 2.5rem; color: #3399ff; font-weight: bold; margin-bottom: 40px; font-family: 'Times New Roman', Times, serif; text-align: center;">Projects</h2>
+
+  <!-- Card 1 -->
+<!-- Inventory Dashboard Card -->
+<div id="project-section" style="display: flex; align-items: center; justify-content: space-between; background-color: #1a1a2e; border-radius: 20px; padding: 40px; max-width: 900px; margin: 40px auto;">
+  <div style="color: white; text-align: left;">
+    <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;">Inventory Dashboard</h3>
+    <p style="font-size: 1rem; color: #aaa; margin-bottom: 20px;">
+      Excel dashboard showing profit, category trends, and orders by region. Helped identify top products and improve stock planning.
+    </p>
+    <a href="inventory-video.html" onclick="showVideo()" style="padding: 10px 20px; 
+          background-color: #3399ff; 
+          color: white; 
+          border-radius: 50px; 
+          text-decoration: none;" 
+   onmouseover="this.style.backgroundColor='#ffffff'; this.style.color='#000';" 
+   onmouseout="this.style.backgroundColor='#3399ff'; this.style.color='#fff';">
+   Live view →
+</a>
+  </div>
+  <img src="image/inventory.png" alt="Inventory Dashboard" style="height: 250px; border-radius: 12px; margin-left: 40px;">
+</div>
+
+<!-- Video Player Section (Hidden by Default) -->
+<div id="video-preview" style="display: none; background-color: #0a0a23; color: white; padding: 40px; text-align: center; min-height: 100vh;">
+  <h2 style="font-size: 2.5rem; margin-bottom: 20px;">📹 Inventory Dashboard – Demo</h2>
+  <video controls width="700" style="border: 4px solid #3399ff; border-radius: 15px;">
+    <source src="Inventory.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <br><br>
+  <button onclick="goBackToProject()" style="margin-top: 30px; padding: 10px 25px; font-size: 1rem; border: none; background-color: #3399ff; color: white; border-radius: 25px; cursor: pointer;">
+    ← Back to Projects
+  </button>
+</div>
+
+<!-- Script to Toggle Views -->
+<script>
+  function showVideo() {
+    document.getElementById("project-section").style.display = "none";
+    document.getElementById("video-preview").style.display = "block";
+  }
+
+  function goBackToProject() {
+    document.getElementById("video-preview").style.display = "none";
+    document.getElementById("project-section").style.display = "flex";
+  }
+</script>
+
+
+  <!-- Card 2 -->
+  <div style="display: flex; align-items: center; justify-content: space-between; background-color: #1a1a2e; border-radius: 20px; padding: 40px; max-width: 900px; margin: 40px auto;">
+    <div style="color: white; text-align: left;">
+      <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;">Sales Distribution Dashboard</h3>
+      <p style="font-size: 1rem; color: #aaa; margin-bottom: 20px;">Power BI report analyzing regional sales. Highlighted strong-performing zones and supported strategic decisions.</p>
+      <a href="sales-video.html" target="_blank" style="padding: 10px 20px; 
+          background-color: #3399ff; 
+          color: white; 
+          border-radius: 50px; 
+          text-decoration: none;" 
+   onmouseover="this.style.backgroundColor='#ffffff'; this.style.color='#000';" 
+   onmouseout="this.style.backgroundColor='#3399ff'; this.style.color='#fff';">
+   Live view →
+</a>
+    </div>
+    <img src="image/sales distribution.png" alt="Sales Distribution Dashboard" style="height: 250px; border-radius: 12px; margin-left: 40px;">
+  </div>
+
+  <!-- Card 3 -->
+  <div style="display: flex; align-items: center; justify-content: space-between; background-color: #1a1a2e; border-radius: 20px; padding: 40px; max-width: 900px; margin: 40px auto;">
+    <div style="color: white; text-align: left;">
+      <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;">Sales Analysis Dashboard</h3>
+      <p style="font-size: 1rem; color: #aaa; margin-bottom: 20px;">Power BI dashboard tracking product sales and reviews. Identified best-selling categories and seasonal trends.</p>
+      <a href="salesa-video.html" onclick="showVideo()" style="padding: 10px 20px; 
+          background-color: #3399ff; 
+          color: white; 
+          border-radius: 50px; 
+          text-decoration: none;" 
+   onmouseover="this.style.backgroundColor='#ffffff'; this.style.color='#000';" 
+   onmouseout="this.style.backgroundColor='#3399ff'; this.style.color='#fff';">
+   Live view →
+</a>
+    </div>
+    <img src="image/Sales Analysis.JPG" alt="Sales Analysis Dashboard" style="height: 250px; border-radius: 12px; margin-left: 40px;">
+  </div>
+
+  <!-- Card 4 -->
+  <div style="display: flex; align-items: center; justify-content: space-between; background-color: #1a1a2e; border-radius: 20px; padding: 40px; max-width: 900px; margin: 40px auto;">
+    <div style="color: white; text-align: left;">
+      <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;">Finance Dashboard</h3>
+      <p style="font-size: 1rem; color: #aaa; margin-bottom: 20px;">Excel dashboard for monthly income vs expenses. Helped track spending and detect budget issues clearly.</p>
+      <a href="finance-video.html" onclick="showVideo()" style="padding: 10px 20px; 
+          background-color: #3399ff; 
+          color: white; 
+          border-radius: 50px; 
+          text-decoration: none;" 
+   onmouseover="this.style.backgroundColor='#ffffff'; this.style.color='#000';" 
+   onmouseout="this.style.backgroundColor='#3399ff'; this.style.color='#fff';">
+   Live view →
+</a>
+    </div>
+    <img src="image/finance.png" alt="Finance Dashboard" style="height: 250px; border-radius: 12px; margin-left: 40px;">
+  </div>
+</section>
+
+
+
+
+
+  <!-- Footer with Contact Icons -->
+<section id="contact">
+  <footer>
+    <h2 style="font-size: 2.5rem; color: #3399ff; font-weight: bold; margin-bottom: 20px; text-align: center; font-family: 'Times New Roman', Times, serif;">Contact</h2>
+    <h2 style="text-align: center;">Get In Touch</h2>
+
+    <div class="social-icons" style="display: flex; justify-content: center; gap: 50px; margin-top: 30px;">
+      
+      <div class="icon-wrapper" style="text-align: center;">
+        <a href="https://www.linkedin.com/in/kalishwarialiasdevi30/" target="_blank" style="display: inline-block; padding: 15px; border-radius: 50%; background-color: transparent; transition: background 0.3s;">
+          <i class="fab fa-linkedin" style="font-size: 2rem; color: #66b2ff;"></i>
+        </a>
+        <span style="display: block; margin-top: 8px; color: white; font-size: 0.9rem;">LinkedIn</span>
+      </div>
+
+      <div class="icon-wrapper" style="text-align: center;">
+        <a href="https://github.com/KalishwariAliasDevi" target="_blank" style="display: inline-block; padding: 15px; border-radius: 50%; background-color: transparent; transition: background 0.3s;">
+          <i class="fab fa-github" style="font-size: 2rem; color: #66b2ff;"></i>
+        </a>
+        <span style="display: block; margin-top: 8px; color: white; font-size: 0.9rem;">GitHub</span>
+      </div>
+
+      <div class="icon-wrapper" style="text-align: center;">
+        <a href="mailto:your@email.com" style="display: inline-block; padding: 15px; border-radius: 50%; background-color: transparent; transition: background 0.3s;">
+          <i class="fas fa-envelope" style="font-size: 2rem; color: #66b2ff;"></i>
+        </a>
+        <span style="display: block; margin-top: 8px; color: white; font-size: 0.9rem;">Email</span>
+      </div>
+
+    </div>
+
+    <p style="text-align: center; margin-top: 40px;">&copy; 2025 Devi | All Rights Reserved</p>
+  </footer>
+</section>
+
+<style>
+  .social-icons a:hover {
+    background-color: white !important;
+  }
+
+  .social-icons a:hover i {
+    color: black !important;
+  }
+</style>
+
+</body>
+
+  <a class="back-top" href="#home">← BACK TO TOP</a>
+
+  <!-- JavaScript for Animation on Scroll & Custom Cursor -->
+  <script>
+    const sections = document.querySelectorAll("section");
+
+    window.addEventListener("scroll", () => {
+      sections.forEach(sec => {
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 500;
+        const height = sec.offsetHeight;
+
+        if (top > offset && top < offset + height) {
+          sec.classList.add("visible");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
